@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import TaskCard from './taskCard'
+import TaskCard from './TaskCard.jsx'
 import "./TaskCard.css"
 
 function App() {
