@@ -12,14 +12,14 @@ function App() {
         <div className='flex justify-center gap-10 p-10'>
         <div className=' rounded-2xl border-4 w-96 '>
           <h1 className='text-xl text-center mt-4 font-bold text-slate-500'>Pending</h1>
-          <TaskCard title="Build website" due="10th April" assignee="Rohit" task="due Date" />
-          <TaskCard title="Build website" due="10th April" assignee="Rohit" task="due Date"/>
+          <TaskCard title="Build website" dueDate="10th April" assigneeName="Rohit" task="due Date" />
+          <TaskCard title="Build website" dueDate="10th April" assigneeName="Rohit" task="due Date"/>
           <div className='bg-slate-200  m-10'>+ New Task</div>
         </div>
         <div className=' rounded-2xl border-4 w-96 '>
         <h1 className='text-xl text-center mt-4  font-bold text-slate-500'>Done</h1>
-        <TaskCard title="Build website" due="10th April" assignee="Rohit" task="Completed on" />
-          <TaskCard title="Build website" due="10th April" assignee="Rohit" task="Completed on" />
+        <TaskCard title="Build website" completedAtDate="10th April" assigneeName="Rohit" task="Completed on" />
+          <TaskCard title="Build website" completedAtDate="10th April" assigneeName="Rohit" task="Completed on" />
         </div>
       </div>
       </div>
