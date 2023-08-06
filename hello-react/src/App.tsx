@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import TaskCard from './TaskCard.jsx'
+import TaskCard from './TaskCard'
 import "./TaskCard.css"
+import React from 'react'
 
 function App() {
   const [count, setCount] = useState(0)
