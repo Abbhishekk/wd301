@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  } from "react";
 import Task from "./Task";
 import { TaskItem } from "./types";
 import { useLocalStorage } from "./hooks/useLocalStorage";
@@ -13,7 +13,7 @@ const TaskList = (props: Props)=>{
     tasks: [],
   });
   //const [propsx, setPropsx] = useState(props);
- // console.log(taskAppState)
+  console.log(taskAppState)
   const deleteTask = (e: React.FormEvent<HTMLFormElement>, id: number) =>{
     e.preventDefault();
 
