@@ -1,16 +1,34 @@
 import {
   createBrowserRouter,
+  Navigate,
   RouterProvider,
 } from "react-router-dom";
 import HomePage from './pages/HomePage';
 import TaskListPage from './pages/TaskListPage';
 import Layout from "./Layout";
 import TaskDetailsPage from "./pages/TaskDetailsPage";
+import Signin from "./pages/SignIn";
+import ProtectedRoute from "./ProtectedRoute";
+import { Signout } from "./pages/SignOut";
 
 const router = createBrowserRouter([
   {
+    path: "/",
+    element: <Navigate to="/signin" replace />,
+  },
+  {
+    path: "/signin",
+    element: <Signin />,
+  },
+  {
+    path: "/signout",
+    element: <Signout />,
+  },
+  {
     element: (
-      <Layout />
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
     ),
     children: [
       {
@@ -29,6 +47,7 @@ const router = createBrowserRouter([
         path: "tasks/:id",
         element: (<TaskDetailsPage />)
       },
+      
     ]
   }
 ]);

@@ -33,7 +33,7 @@ const TaskList = (props: Props)=>{
     props.tasks.map((task, idx) => (
       
         
-      <><Task item={({ id: task.id, title: task.title, description: task.description, dueDate: task.dueDate })} removeTask={deleteTask} /><button type="submit" className="bg-red-500 rounded m-5 deleteTaskButton">Delete</button></>
+      <><Task item={({ id: task.id, title: task.title, description: task.description, dueDate: task.dueDate })} removeTask={deleteTask} /></>
      
     ))
   )

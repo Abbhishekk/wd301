@@ -1,4 +1,7 @@
+import { Navigate } from "react-router-dom";
+
 const Header = () => {
+  
     return (
       <nav className="bg-gray-800 py-4">
         <div className="mx-auto px-4">
@@ -13,6 +16,11 @@ const Header = () => {
             </div>
             <div className="flex items-center w-1/3 justify-center">
               <h2 className="text-white text-lg font-bold">Smarter Tasks</h2>
+            </div>
+            <div className="flex items-center w-1/3 justify-center">
+              <a href="/signout"  className="text-white text-lg font-bold">
+                Sign Out
+              </a>
             </div>
           </div>
         </div>
