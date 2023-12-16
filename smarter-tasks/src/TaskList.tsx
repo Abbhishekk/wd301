@@ -1,4 +1,3 @@
-import React, {  } from "react";
 import Task from "./Task";
 import { TaskItem } from "./types";
 import { useLocalStorage } from "./hooks/useLocalStorage";
@@ -30,7 +29,7 @@ const TaskList = (props: Props)=>{
   
   return(
 
-    props.tasks.map((task, idx) => (
+    props.tasks.map((task, _idx) => (
       
         
       <><Task item={({ id: task.id, title: task.title, description: task.description, dueDate: task.dueDate })} removeTask={deleteTask} /></>
