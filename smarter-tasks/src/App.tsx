@@ -11,18 +11,27 @@ import Signin from "./pages/SignIn";
 import ProtectedRoute from "./ProtectedRoute";
 import { Signout } from "./pages/SignOut";
 
+import NotFound from "./pages/NotFound";
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Navigate to="/signin" replace />,
+    errorElement: (<NotFound />)
   },
   {
     path: "/signin",
     element: <Signin />,
+    errorElement: (<NotFound />)
   },
   {
     path: "/signout",
     element: <Signout />,
+    errorElement: (<NotFound />)
+  },
+  {
+    path: "/notfound",
+    element: <NotFound />
   },
   {
     element: (
@@ -33,19 +42,23 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: (<HomePage />)
+        element: (<HomePage />),
+        errorElement: (<NotFound />)
       },
       {
         path: "/home",
-        element: (<HomePage />)
+        element: (<HomePage />),
+        errorElement: (<NotFound />)
       },
       {
         path: "/tasks",
-        element: (<TaskListPage />)
+        element: (<TaskListPage />),
+        errorElement: (<NotFound />)
       },
       {
         path: "tasks/:id",
-        element: (<TaskDetailsPage />)
+        element: (<TaskDetailsPage />),
+        errorElement: (<NotFound />)
       },
       
     ]
