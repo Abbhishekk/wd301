@@ -10,8 +10,10 @@ import TaskDetailsPage from "./pages/TaskDetailsPage";
 import Signin from "./pages/SignIn";
 import ProtectedRoute from "./ProtectedRoute";
 import { Signout } from "./pages/SignOut";
-
+import ReactPlayground from './ReactPlayGround';
 import NotFound from "./pages/NotFound";
+import SignUp from "./pages/SignUp";
+import Form from './Form';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +24,11 @@ const router = createBrowserRouter([
   {
     path: "/signin",
     element: <Signin />,
+    errorElement: (<NotFound />)
+  },
+  {
+    path: "/signup",
+    element: <SignUp />,
     errorElement: (<NotFound />)
   },
   {
@@ -67,7 +74,11 @@ const router = createBrowserRouter([
 
 const App = () => {
   return (
+    <>
+         
+    <Form />
     <RouterProvider router={router} />
+    </>
   );
 }
 
