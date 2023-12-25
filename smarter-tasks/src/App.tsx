@@ -1,85 +1,15 @@
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
-} from "react-router-dom";
-import HomePage from './pages/HomePage';
-import TaskListPage from './pages/TaskListPage';
-import Layout from "./Layout";
-import TaskDetailsPage from "./pages/TaskDetailsPage";
-import Signin from "./pages/SignIn";
-import ProtectedRoute from "./ProtectedRoute";
-import { Signout } from "./pages/SignOut";
-import ReactPlayground from './ReactPlayGround';
-import NotFound from "./pages/NotFound";
-import SignUp from "./pages/SignUp";
-import Form from './Form';
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Navigate to="/signin" replace />,
-    errorElement: (<NotFound />)
-  },
-  {
-    path: "/signin",
-    element: <Signin />,
-    errorElement: (<NotFound />)
-  },
-  {
-    path: "/signup",
-    element: <SignUp />,
-    errorElement: (<NotFound />)
-  },
-  {
-    path: "/signout",
-    element: <Signout />,
-    errorElement: (<NotFound />)
-  },
-  {
-    path: "/notfound",
-    element: <NotFound />
-  },
-  {
-    element: (
-      <ProtectedRoute>
-        <Layout />
-      </ProtectedRoute>
-    ),
-    children: [
-      {
-        path: "/",
-        element: (<HomePage />),
-        errorElement: (<NotFound />)
-      },
-      {
-        path: "/home",
-        element: (<HomePage />),
-        errorElement: (<NotFound />)
-      },
-      {
-        path: "/tasks",
-        element: (<TaskListPage />),
-        errorElement: (<NotFound />)
-      },
-      {
-        path: "tasks/:id",
-        element: (<TaskDetailsPage />),
-        errorElement: (<NotFound />)
-      },
-      
-    ]
-  }
-]);
+import React, { useContext } from "react";
+import { RouterProvider } from "react-router-dom";
+import ThemeContext from "./context/theme";
+import router from "./routes"
 
 const App = () => {
+  const { theme } = useContext(ThemeContext)
   return (
-    <>
-         
-    <Form />
-    <RouterProvider router={router} />
-    </>
+    <div className={`h-screen w-full mx-auto py-2 ${theme === "dark" ? "dark" : ""}`}>
+     
+      <RouterProvider router={router} />
+    </div>
   );
 }
-
-export default App
+export default App;

@@ -1,10 +1,11 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 export default function ProtectedRoute({ children }: { children: JSX.Element }) {
-  const authenticated = localStorage.getItem("authenticated");
-  if (authenticated === 'true') {
+  const { pathname } = useLocation()
+  const authenticated = !!localStorage.getItem("authToken");
+  if (authenticated) {
     return <>{children}</>;
   } else {
-    return <Navigate to="/signin" />;
+    return <Navigate to="/signin" replace state={{referrer: pathname}} />;
  }
 }

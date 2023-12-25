@@ -76,7 +76,7 @@ const Header = () => {
                 </a>
               </li>
               <li>
-              <a href="/signout" className="ml-auto md:ml-6 text-gray-300 hover:text-white ">
+              <a href="/signout" id="logout-link" className="ml-auto md:ml-6 text-gray-300 hover:text-white ">
                   Log Out
                 </a>
               </li>
