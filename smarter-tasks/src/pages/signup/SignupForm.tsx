@@ -1,22 +1,33 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_ENDPOINT } from '../../config/constants';
+import { SubmitHandler, useForm } from "react-hook-form";
+
+type Inputs= {
+  organisation: string;
+  username: string;
+  email: string;
+  password: string;
+}
 const SignupForm: React.FC = () =>{
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [email, setEmail] = useState("");
-    const [organisation, setOrganisation] = useState("");
+    
+    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+   
     const navigate = useNavigate();
     localStorage.setItem("authenticated", "false");
   
-    const handleSignin = async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
+    
+
+    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+      const { organisation,username, email,password, } = data
+      console.log(email, password, organisation, username)
+      
       try {
         const response = await fetch(`${API_ENDPOINT}/organisations`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name: organisation, user_name: username, email: email, password: password}),
-        });
+        }); 
   
         if (!response.ok) {
           throw new Error('Sign-up failed');
@@ -31,7 +42,8 @@ const SignupForm: React.FC = () =>{
       } catch (error) {
         console.error('Sign-up failed:', error);
       }
-    }
+    };
+
     const [showPassword, setShowPassword] = useState(false);
     const [showHide, setShowHide] = useState("show");
     return (
@@ -40,7 +52,7 @@ const SignupForm: React.FC = () =>{
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
           Sign Up
         </h2>
-        <form onSubmit={handleSignin}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <div>
             <label
               htmlFor="organisationName"
@@ -51,12 +63,12 @@ const SignupForm: React.FC = () =>{
             <input
               type="text"
               id="organisationName"
-              name="organisationName"
-              value={organisation}
-              onChange={(e) => setOrganisation(e.target.value)}
+             { ...register("organisation", { required: true })} 
+             
               placeholder="Enter your organisation name"
-              className="w-full border rounded-md py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
+              className="w-full border rounded-md py-2 px-3 text-black leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
             />
+            {errors.organisation && <span>This field is required</span>}
             </div>
           <div className="mt-4">
             <label
@@ -68,12 +80,13 @@ const SignupForm: React.FC = () =>{
             <input
               type="text"
               id="username"
-              name="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              
+              {...register("username", { required: true })}
+              
               placeholder="Enter your username"
-              className="w-full border rounded-md py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
+              className="w-full border rounded-md py-2 px-3 text-black leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
             />
+            {errors.username && <span>This field is required</span>}
           </div>
           <div className="mt-4">
             <label
@@ -85,12 +98,12 @@ const SignupForm: React.FC = () =>{
             <input
               type="email"
               id="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register("email", { required: true })}
+              
               placeholder="Enter your Email"
-              className="w-full border rounded-md py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
+              className="w-full border rounded-md py-2 px-3 text-black leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
             />
+            {errors.email && <span>This field is required</span>}
           </div>
           <div className="mt-4 ">
             <label
@@ -116,13 +129,12 @@ const SignupForm: React.FC = () =>{
                 showPassword ? "text" : "password"
               }
               id="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password", { required: true })}
+              
               placeholder="Enter your password"
-              className="w-full border rounded-md py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
+              className="w-full border rounded-md py-2 px-3 text-black leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
             />
-         
+          {errors.password && <span>This field is required</span>}
           </div>
           </div>
           

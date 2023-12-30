@@ -1,40 +1,57 @@
 import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { API_ENDPOINT } from "../../config/constants";
+import { SubmitHandler, useForm } from "react-hook-form";
 
+
+type Inputs={
+  email: string;
+  password: string;
+  remember: boolean;
+}
 const  SigninForm: React.FC = ()=> {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+ 
+  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
   const navigate = useNavigate();
   localStorage.setItem("authenticated", "false");
 
-  const handleSignin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    
-    try {
-        const response = await fetch(`${API_ENDPOINT}/users/sign_in`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: username, password: password}),
-          });
-    
-          if (!response.ok) {
-            throw new Error('Sign-in failed');
-          }
-          console.log('Sign-in successful');
-          const data = await response.json();
-         
-      // After successful signin, first we will save the token in localStorage
-      localStorage.setItem('authToken', data.token);
-      localStorage.setItem('userData', JSON.stringify(data.user));
-      navigate("/account"); 
-    } catch (error) {
-        console.error('Sign-in failed:', error);
-        
-    }
-  }
+  
   const [showPassword, setShowPassword] = useState(false);
   const [showHide, setShowHide] = useState("show");
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const { email,password, remember } = data
+    console.log(email, password, remember)
+    // Next, I'll call the addProject function with two arguments: 
+    //`dispatchProjects` and an object with `name` attribute. 
+    // As it's an async function, we will await for the response.
+    try {
+      const response = await fetch(`${API_ENDPOINT}/users/sign_in`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, password: password}),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Sign-in failed');
+        }
+        console.log('Sign-in successful');
+        const data = await response.json();
+       localStorage.setItem('authenticated', "true");
+
+       localStorage.setItem('authToken', data.token);
+      
+      localStorage.setItem('userData', JSON.stringify(data.user));
+     
+     
+    // After successful signin, first we will save the token in localStorage
+    
+    navigate("/account"); 
+  } catch (error) {
+      console.error('Sign-in failed:', error);
+      
+  }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -42,7 +59,7 @@ const  SigninForm: React.FC = ()=> {
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
           Sign In
         </h2>
-        <form onSubmit={handleSignin}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label
               htmlFor="email"
@@ -53,12 +70,12 @@ const  SigninForm: React.FC = ()=> {
             <input
               type="text"
               id="email"
-              name="email"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              {...register("email",{required: true})}
+             
               placeholder="Enter your Email"
-              className="w-full border rounded-md py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
+              className="w-full border rounded-md py-2 px-3 text-black leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
             />
+            {errors.email && <span>This field is required</span>}
           </div>
           <div className="mt-4 ">
             <label
@@ -84,13 +101,12 @@ const  SigninForm: React.FC = ()=> {
                 showPassword ? "text" : "password"
               }
               id="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+             { ...register("password", {required: true})}
+              
               placeholder="Enter your password"
-              className="w-full border rounded-md py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
+              className="w-full border rounded-md py-2 px-3 text-black leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
             />
-         
+         {errors.password && <span>This field is required</span>}
           </div>
           </div>
           <div className="mt-4 flex justify-between">

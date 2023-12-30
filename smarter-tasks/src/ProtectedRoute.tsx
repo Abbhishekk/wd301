@@ -2,7 +2,7 @@ import { Navigate, useLocation } from "react-router-dom";
 
 export default function ProtectedRoute({ children }: { children: JSX.Element }) {
   const { pathname } = useLocation()
-  const authenticated = !!localStorage.getItem("authToken");
+  const authenticated = !!localStorage.getItem("authenticated");
   if (authenticated) {
     return <>{children}</>;
   } else {

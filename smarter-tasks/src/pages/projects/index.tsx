@@ -1,4 +1,3 @@
-import { useState } from "react";
 import ProjectList from "./ProjectList";
 import NewProject from "./newProject";
  const Projects = () =>{
@@ -11,6 +10,6 @@ import NewProject from "./newProject";
       </div>
       <ProjectList />
     </>
-    )
+    ) 
 }
 export default Projects;
